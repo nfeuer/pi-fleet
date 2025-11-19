@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi Fleet Manager - Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍓 Raspberry Pi Fleet Manager</h1>
+            <div class="header-info">
+                <span id="server-status" class="status-badge">Connecting...</span>
+                <span id="last-update">Last update: --</span>
+            </div>
+        </header>
+
+        <!-- Fleet Summary -->
+        <section class="fleet-summary">
+            <div class="summary-card">
+                <div class="card-icon">📊</div>
+                <div class="card-content">
+                    <div class="card-value" id="total-devices">--</div>
+                    <div class="card-label">Total Devices</div>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon">✅</div>
+                <div class="card-content">
+                    <div class="card-value" id="online-devices">--</div>
+                    <div class="card-label">Online</div>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon">❌</div>
+                <div class="card-content">
+                    <div class="card-value" id="offline-devices">--</div>
+                    <div class="card-label">Offline</div>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon">🔥</div>
+                <div class="card-content">
+                    <div class="card-value" id="avg-cpu">--</div>
+                    <div class="card-label">Avg CPU %</div>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon">💾</div>
+                <div class="card-content">
+                    <div class="card-value" id="avg-memory">--</div>
+                    <div class="card-label">Avg Memory %</div>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="card-icon">🌡️</div>
+                <div class="card-content">
+                    <div class="card-value" id="avg-temp">--</div>
+                    <div class="card-label">Avg Temp °C</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Device List -->
+        <section class="devices-section">
+            <div class="section-header">
+                <h2>Devices</h2>
+                <button id="refresh-btn" class="btn btn-primary">↻ Refresh</button>
+            </div>
+            <div id="devices-container" class="devices-grid">
+                <!-- Devices will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Device Detail Modal -->
+        <div id="device-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modal-device-name">Device Details</h2>
+
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="overview">Overview</button>
+                    <button class="tab-btn" data-tab="metrics">Metrics</button>
+                    <button class="tab-btn" data-tab="commands">Commands</button>
+                </div>
+
+                <div id="overview-tab" class="tab-content active">
+                    <div id="device-details"></div>
+                </div>
+
+                <div id="metrics-tab" class="tab-content">
+                    <canvas id="metrics-chart"></canvas>
+                    <div id="metrics-list"></div>
+                </div>
+
+                <div id="commands-tab" class="tab-content">
+                    <div class="command-form">
+                        <h3>Send Command</h3>
+                        <select id="command-type">
+                            <option value="shell">Shell Command</option>
+                            <option value="update">System Update</option>
+                            <option value="service">Service Management</option>
+                            <option value="reboot">Reboot</option>
+                        </select>
+                        <div id="command-payload"></div>
+                        <button id="send-command-btn" class="btn btn-primary">Send Command</button>
+                    </div>
+                    <div class="command-history">
+                        <h3>Command History</h3>
+                        <div id="command-history-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

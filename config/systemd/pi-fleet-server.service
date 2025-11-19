@@ -1,0 +1,22 @@
+[Unit]
+Description=Pi Fleet Management Server
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/pi-fleet
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+ExecStart=/usr/bin/python3 /home/pi/pi-fleet/pi-fleet-manager.py --host 0.0.0.0 --port 5000
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

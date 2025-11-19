@@ -1,0 +1,39 @@
+# Nginx Reverse Proxy Configuration
+# Device: {{ device_name }}
+
+server {
+    listen {{ listen_port | default(80) }};
+    server_name {{ server_name | default(device_name + '.local') }};
+
+    # Logging
+    access_log /var/log/nginx/{{ server_name }}_access.log;
+    error_log /var/log/nginx/{{ server_name }}_error.log;
+
+    # Proxy settings
+    location / {
+        proxy_pass {{ backend_url | default('http://localhost:8080') }};
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # WebSocket support
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # Timeouts
+        proxy_connect_timeout {{ proxy_timeout | default(60) }}s;
+        proxy_send_timeout {{ proxy_timeout | default(60) }}s;
+        proxy_read_timeout {{ proxy_timeout | default(60) }}s;
+    }
+
+    {% if enable_ssl | default(false) %}
+    # SSL Configuration
+    listen 443 ssl;
+    ssl_certificate {{ ssl_cert_path }};
+    ssl_certificate_key {{ ssl_key_path }};
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    {% endif %}
+}

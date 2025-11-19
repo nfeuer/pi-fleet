@@ -1,0 +1,24 @@
+[Unit]
+Description=Pi Fleet Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+# Update the server URL to match your fleet manager
+ExecStart=/usr/bin/python3 /home/pi/pi-agent.py --server http://192.168.1.100:5000 --name %H
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

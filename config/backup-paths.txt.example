@@ -1,0 +1,38 @@
+# Custom Backup Paths
+#
+# Specify additional paths to backup beyond the defaults.
+# One path per line. Paths can be files or directories.
+#
+# Default paths already backed up:
+# - /etc/hostname
+# - /etc/hosts
+# - /etc/network/interfaces
+# - /etc/dhcpcd.conf
+# - /etc/wpa_supplicant/wpa_supplicant.conf
+# - /etc/fstab
+# - /etc/rc.local
+# - /etc/crontab
+# - /var/spool/cron/crontabs
+
+# Application configurations
+/opt/myapp/config
+/home/pi/.config/myapp
+
+# Custom services
+/etc/systemd/system/custom-service.service
+/etc/default/custom-service
+
+# Web server configs
+/etc/nginx/sites-available
+/etc/apache2/sites-available
+
+# Database backups (if applicable)
+# /var/lib/influxdb/backup
+# /var/lib/postgresql/backup
+
+# Docker configs
+/etc/docker/daemon.json
+/home/pi/docker-compose.yml
+
+# Custom scripts
+/usr/local/bin/custom-scripts

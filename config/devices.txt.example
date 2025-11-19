@@ -1,0 +1,26 @@
+# Pi Fleet Device List
+#
+# This file contains the list of devices in your fleet.
+# Format: username@hostname (one per line)
+#
+# Examples:
+# pi@raspberrypi.local
+# pi@192.168.1.100
+# ubuntu@pi-server.local
+#
+# You can use hostnames, IP addresses, or .local mDNS names
+
+# Living Room Devices
+pi@livingroom-pi.local
+pi@media-center.local
+
+# Office Devices
+pi@office-pi-1.local
+pi@office-pi-2.local
+
+# IoT Sensors
+pi@temperature-sensor.local
+pi@camera-1.local
+
+# Development
+pi@test-pi.local

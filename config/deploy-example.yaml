@@ -1,0 +1,54 @@
+# Configuration Deployment Specification Example
+#
+# This file defines what configurations to deploy and to which devices.
+# Use with: python3 tools/config/deploy-config.py --server <url> --config this-file.yaml
+
+# Target device filter (optional)
+# If not specified, deploys to all online devices
+# Can be a device name pattern
+filter: ""
+
+# Device group (optional, for future implementation)
+# group: "production"
+
+# List of deployments
+deployments:
+  # Example 1: MQTT Configuration
+  - template: config/templates/mqtt-config.conf.j2
+    target: /etc/mqtt/mqtt.conf
+    mode: "0644"
+    variables:
+      mqtt_broker: "192.168.1.10"
+      mqtt_port: 1883
+      mqtt_user: "pi-fleet"
+      mqtt_password: "change-me"
+      mqtt_base_topic: "homeassistant"
+      mqtt_qos: 1
+      log_level: "INFO"
+
+  # Example 2: Nginx Reverse Proxy
+  - template: config/templates/nginx-reverse-proxy.conf.j2
+    target: /etc/nginx/sites-available/reverse-proxy.conf
+    mode: "0644"
+    variables:
+      listen_port: 80
+      backend_url: "http://localhost:3000"
+      proxy_timeout: 60
+      enable_ssl: false
+
+  # Example 3: Simple text file
+  # - template: config/templates/custom-service.conf.j2
+  #   target: /etc/custom-service/config.conf
+  #   mode: "0644"
+  #   variables:
+  #     service_enabled: true
+  #     service_port: 8080
+
+# Notes:
+# - Templates use Jinja2 syntax
+# - Variables can reference device properties:
+#   - device_id: Unique device identifier
+#   - device_name: Device hostname
+#   - hostname: Network hostname
+# - File permissions use octal notation as strings
+# - Paths must be absolute

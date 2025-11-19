@@ -1,0 +1,46 @@
+# MQTT Configuration Template
+# This is a Jinja2 template for MQTT broker configuration
+
+# Device Information
+# Device: {{ device_name }}
+# Generated: {{ ansible_date_time.iso8601 if ansible_date_time is defined else 'manual' }}
+
+# Broker Settings
+broker_address = {{ mqtt_broker | default('localhost') }}
+broker_port = {{ mqtt_port | default(1883) }}
+
+# Authentication
+{% if mqtt_user is defined and mqtt_password is defined %}
+username = {{ mqtt_user }}
+password = {{ mqtt_password }}
+{% else %}
+# No authentication configured
+{% endif %}
+
+# Topics
+base_topic = {{ mqtt_base_topic | default('homeassistant') }}/{{ device_name }}
+status_topic = ${base_topic}/status
+data_topic = ${base_topic}/data
+
+# QoS Settings
+qos = {{ mqtt_qos | default(1) }}
+
+# Client Settings
+client_id = {{ device_id }}
+keepalive = {{ mqtt_keepalive | default(60) }}
+clean_session = {{ mqtt_clean_session | default('true') }}
+
+# TLS/SSL
+{% if mqtt_tls_enabled | default(false) %}
+tls_enabled = true
+tls_ca_cert = {{ mqtt_tls_ca_cert }}
+{% if mqtt_tls_client_cert is defined %}
+tls_client_cert = {{ mqtt_tls_client_cert }}
+tls_client_key = {{ mqtt_tls_client_key }}
+{% endif %}
+{% else %}
+tls_enabled = false
+{% endif %}
+
+# Logging
+log_level = {{ log_level | default('INFO') }}
