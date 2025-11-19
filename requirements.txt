@@ -3,6 +3,8 @@
 # Core web framework
 flask==3.0.0
 flask-cors==4.0.0
+flask-login==0.6.3
+flask-jwt-extended==4.5.3
 
 # Database
 flask-sqlalchemy==3.1.1
@@ -25,3 +27,20 @@ marshmallow==3.20.1
 
 # Date/time handling
 python-dateutil==2.8.2
+
+# Password hashing
+bcrypt==4.1.1
+werkzeug==3.0.1
+
+# Email notifications
+flask-mail==0.9.1
+
+# Scheduling
+apscheduler==3.10.4
+
+# Optional: PostgreSQL support
+# psycopg2-binary==2.9.9
+
+# Optional: Redis for caching
+# redis==5.0.1
+# flask-caching==2.1.0

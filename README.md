@@ -2,6 +2,9 @@
 
 A comprehensive, centralized management system for fleets of Raspberry Pi devices. Monitor, update, configure, and manage multiple Pi devices from a single control point.
 
+> **🎉 Version 2.0 Available!** Now with user authentication, alerting, device grouping, scheduled tasks, and more!
+> See [V2_FEATURES.md](docs/V2_FEATURES.md) for details and [upgrade instructions](#upgrading-to-v2).
+
 ## Features
 
 ### Fleet Management
@@ -458,17 +461,64 @@ For issues, questions, or contributions:
 - Check existing documentation
 - Review troubleshooting section
 
+## Upgrading to V2
+
+Version 2.0 adds powerful new features while maintaining full backward compatibility.
+
+### What's New in V2
+
+✅ **User Authentication & RBAC** - Multi-user support with admin/user/viewer roles
+✅ **Device Grouping & Tagging** - Organize devices logically
+✅ **Alerting System** - Proactive monitoring with email notifications
+✅ **Scheduled Tasks** - Automate maintenance with cron-like scheduling
+✅ **Command Templates** - Reusable command sequences
+✅ **Enhanced Analytics** - Historical charts and advanced reporting
+✅ **Export Tools** - Export metrics to CSV/JSON for analysis
+
+### Upgrade Process
+
+```bash
+# 1. Backup your database
+cp fleet.db fleet_backup.db
+
+# 2. Install new dependencies
+pip3 install -r requirements.txt
+
+# 3. Run upgrade script
+python3 upgrade-to-v2.py
+
+# 4. Start alert monitor (optional)
+python3 services/alert-monitor.py &
+
+# 5. Log in to dashboard
+# Username: admin
+# Password: admin123 (change immediately!)
+```
+
+### Documentation
+
+- **[V2 Features Guide](docs/V2_FEATURES.md)** - Complete guide to all V2 features
+- **[Quick Reference](docs/QUICK_REFERENCE.md)** - Command cheat sheet
+- **[CHANGELOG](CHANGELOG.md)** - Detailed change log
+
 ## Roadmap
 
-Future enhancements:
+### Completed in V2.0
+- [x] Email/Slack notifications
+- [x] Device grouping and tagging
+- [x] Role-based access control
+- [x] Advanced alerting system
+- [x] Scheduled task automation
+- [x] Command templates/playbooks
+
+### Planned for Future Releases
 - [ ] Ansible playbook integration
-- [ ] Docker container deployment
+- [ ] Docker container monitoring
 - [ ] Prometheus/Grafana integration
-- [ ] Email/Slack notifications
-- [ ] Device grouping and tagging
-- [ ] Role-based access control
-- [ ] PostgreSQL support for large fleets
+- [ ] PostgreSQL support for large fleets (>100 devices)
 - [ ] Mobile app for monitoring
+- [ ] Kubernetes cluster support
+- [ ] Advanced ML-based predictions
 
 ## Acknowledgments
 
